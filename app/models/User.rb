@@ -3,15 +3,19 @@ class User < ActiveRecord::Base
     has_many :tickets
     has_many :venues, through: :tickets
 
-    # attr_accessor :userName
 
-
-
-    # def initialize(name)
-    #     self.userName = name
-    #     # self.save
-    #     puts self.class
-    # end
+    # def venues
+    #     tickets = []
+    #     Ticket.all.each do | ticket | tickets << ticket.venue
+    #       if ticket.user == self
+    #       end
+    #     end
+    #     return tickets
+    #   end
+    
+    #   def tickets
+    #     Ticket.all.select { | ticket | ticket.user == self}
+    #   end
 
 
 end

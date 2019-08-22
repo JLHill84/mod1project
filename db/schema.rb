@@ -20,7 +20,6 @@ ActiveRecord::Schema.define(version: 3) do
 
   create_table "users", force: :cascade do |t|
     t.string "userName"
-    t.string "ticketName"
   end
 
   create_table "venues", force: :cascade do |t|

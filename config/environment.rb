@@ -1,17 +1,16 @@
-
 require "sinatra/activerecord"
-
-require_relative "../app/models/Ticket.rb"
-require_relative "../app/models/User.rb"
-require_relative "../app/models/Venue.rb"
-
 require 'bundler/setup'
 require 'rest-client'
 require 'json'
 require 'pry'
+require 'twilio-ruby'
+require 'tty-prompt'
 
-
-
+require_relative "../app/models/Ticket.rb"
+require_relative "../app/models/User.rb"
+require_relative "../app/models/Venue.rb"
+require_relative "../lib/api_communicator.rb"
+require_relative "../lib/command_line_interface.rb"
 
 Bundler.require
 
