@@ -13,6 +13,7 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     arel (7.1.4)
+    asciify (0.1.0)
     coderay (1.1.1)
     concurrent-ruby (1.0.5)
     database_cleaner (1.7.0)
@@ -102,6 +103,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  asciify
   database_cleaner
   pry
   rake

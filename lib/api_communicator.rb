@@ -23,6 +23,7 @@ def find_events_by_zip_code(zip_code)
         theVenue = Venue.create(ticketName: userSelection, venueName: "#{nameHash.values_at(userSelection).pop.to_str.tr('[]"', "")}", userName: $user.userName)
         newTicket = Ticket.create(ticketName: userSelection, venueName: theVenue.venueName, userName: $user.userName)
         $user.save
+        prompt.warn("Ticket purchased!")
     end
 end 
 
@@ -51,6 +52,7 @@ def find_events_by_type(classificationName, city)
         theVenue = Venue.create(ticketName: userSelection, venueName: "#{nameHash.values_at(userSelection).pop.to_str.tr('[]"', "")}", userName: $user.userName)
         newTicket = Ticket.create(ticketName: userSelection, venueName: theVenue.venueName, userName: $user.userName)
         $user.save
+        prompt.warn("Ticket purchased!")
     end
 end 
 
@@ -79,6 +81,7 @@ def find_events_by_venue(venue)
         theVenue = Venue.create(ticketName: userSelection, venueName: "#{nameHash.values_at(userSelection).pop.to_str.tr('[]"', "")}", userName: $user.userName)
         newTicket = Ticket.create(ticketName: userSelection, venueName: theVenue.venueName, userName: $user.userName)
         $user.save
+        prompt.warn("Ticket purchased!")
     end
 end
 
@@ -107,6 +110,7 @@ def find_events_by_date(start_date, end_date, city)
         theVenue = Venue.create(ticketName: userSelection, venueName: "#{nameHash.values_at(userSelection).pop.to_str.tr('[]"', "")}", userName: $user.userName)
         newTicket = Ticket.create(ticketName: userSelection, venueName: theVenue.venueName, userName: $user.userName)
         $user.save
+        prompt.warn("Ticket purchased!")
     end
 end
 

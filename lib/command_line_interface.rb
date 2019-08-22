@@ -9,9 +9,14 @@ def welcome
     if q == "Yes"
         puts "Please enter your user name."
         @this_user_name = gets.chomp
-        $user = User.find_by(userName: @this_user_name)
-        puts "Thanks, #{@this_user_name}!"
-    else 
+        if !User.exists?(userName: @this_user_name)
+            prompt.error("User not found, please try again or create a new user.")
+            welcome
+        else
+            $user = User.find_by(userName: @this_user_name)
+            puts "Thanks, #{@this_user_name}!"
+        end
+    elsif q == "No"
         puts "Let's create a user name!"
         create_new_user
     end
@@ -20,7 +25,7 @@ end
 
 def main_menu
     prompt = TTY::Prompt.new
-    choices = ['Purchase a ticket', 'Cancel a ticket', 'Update user name', 'Exit program']
+    choices = ['Purchase a ticket', 'Cancel a ticket', 'Update user name', 'Share event info via text', 'Exit program']
     response = prompt.select("What would you like to do now?", choices, cycle: true)
         if response == "Purchase a ticket"
             buy_ticket
@@ -28,6 +33,8 @@ def main_menu
             cancel_ticket
         elsif response == "Update user name"
             update_user_name
+        elsif response == "Share event info via text"
+            text_info
         elsif response == "Exit program"
             puts "Goodbye!👋"
             exit!
@@ -96,14 +103,11 @@ def buy_ticket
 end
 
 def cancel_ticket
-    # LIKE THIS:
-    # user = User.find_by(name: 'David')
-    # user.destroy
     prompt = TTY::Prompt.new
     choices = []
     choices = Ticket.all.where(userName: @this_user_name)
     if choices.length == 0
-        puts "You don't have any tickets."
+        prompt.error("You don't have any tickets.")
         main_menu
     else
         ticketNames = []
@@ -113,6 +117,42 @@ def cancel_ticket
         userResponse = prompt.select("Which ticket would you like to cancel?", ticketNames, cycle: true)
         ticket_to_destroy = Ticket.find_by(ticketName: userResponse, userName: @this_user_name)
         ticket_to_destroy.destroy
+        prompt.error("Ticket has been deleted.")
+        main_menu
+    end
+end
+
+def text_info
+    
+    prompt = TTY::Prompt.new
+    choices = []
+    choices = Ticket.all.where(userName: @this_user_name)
+    if choices.length == 0
+        prompt.error("You don't have any tickets.")
+        main_menu
+    else
+        ticketNames = []
+        choices.all.each do |stuff|
+            ticketNames << stuff.ticketName
+    end
+        userResponse = prompt.select("Which ticket would you like to text?", ticketNames, cycle: true)
+        ticket_to_send = Ticket.find_by(ticketName: userResponse, userName: @this_user_name)
+
+        account_sid = 'AC6d363be5cea657b2b5eb560da56f1f9c'
+        auth_token = '5d99a307ffd972b1ea8313a7b489374c'
+        client = Twilio::REST::Client.new(account_sid, auth_token)
+
+        from = '+18329570528' # Your Twilio number
+        to = '+18327219007' # Your mobile phone number
+
+        client.messages.create(
+        from: from,
+        to: to,
+        body: ticket_to_send.ticketName
+        )
+
+
+        prompt.warn("Ticket has been sent.")
         main_menu
     end
 end
