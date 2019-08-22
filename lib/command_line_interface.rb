@@ -138,9 +138,8 @@ def text_info
         userResponse = prompt.select("Which ticket would you like to text?", ticketNames, cycle: true)
         ticket_to_send = Ticket.find_by(ticketName: userResponse, userName: @this_user_name)
 
-        account_sid = 'AC6d363be5cea657b2b5eb560da56f1f9c'
-        auth_token = '5d99a307ffd972b1ea8313a7b489374c'
-        client = Twilio::REST::Client.new(account_sid, auth_token)
+
+        client = Twilio::REST::Client.new(@account_sid, @auth_token)
 
         from = '+18329570528' # Your Twilio number
         to = '+18327219007' # Your mobile phone number

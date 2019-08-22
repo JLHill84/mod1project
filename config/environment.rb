@@ -11,6 +11,7 @@ require_relative "../app/models/User.rb"
 require_relative "../app/models/Venue.rb"
 require_relative "../lib/api_communicator.rb"
 require_relative "../lib/command_line_interface.rb"
+require_relative "../lib/twilioAuth.rb"
 
 Bundler.require
 
