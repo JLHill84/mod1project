@@ -25,12 +25,26 @@ end
 
 def main_menu
     prompt = TTY::Prompt.new
-    choices = ['Purchase a ticket', 'Cancel a ticket', 'Update user name', 'Share event info via text', 'Exit program']
+    choices = ['Purchase a ticket', 'Cancel a ticket', 'Update user name', 'Share event info via text', 'See my tickets', 'Exit program']
     response = prompt.select("What would you like to do now?", choices, cycle: true)
         if response == "Purchase a ticket"
             buy_ticket
         elsif response == "Cancel a ticket"
             cancel_ticket
+        elsif response == "See my tickets"
+            tickets = []
+            tickets = Ticket.all.where(userName: @this_user_name)
+            if tickets.length == 0
+                puts "You don't have any tickets."
+                main_menu
+            else
+                ticketNames = []
+                tickets.all.each do |stuff|
+                ticketNames << stuff.ticketName
+                puts ticketNames
+                end
+                main_menu
+            end
         elsif response == "Update user name"
             update_user_name
         elsif response == "Share event info via text"
