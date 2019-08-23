@@ -1,6 +1,6 @@
 def find_events_by_zip_code(zip_code)
     prompt = TTY::Prompt.new
-    events_results_string = RestClient.get("https://app.ticketmaster.com/discovery/v2/events.json?apikey=FU4GMZjNo1N2AxOwXrVwwmZDw8MjQD8f&postalCode=#{zip_code}")
+    events_results_string = RestClient.get("https://app.ticketmaster.com/discovery/v2/events.json?apikey=@apiKey&postalCode=#{zip_code}")
     events_results_hash = JSON.parse(events_results_string)
     
     if events_results_hash["_embedded"] == nil
@@ -27,7 +27,7 @@ end
 
 def find_events_by_type(classificationName, city)
     prompt = TTY::Prompt.new
-    events_results_string = RestClient.get("https://app.ticketmaster.com/discovery/v2/events.json?classificationName=#{classificationName}&city=#{city}&apikey=FU4GMZjNo1N2AxOwXrVwwmZDw8MjQD8f")
+    events_results_string = RestClient.get("https://app.ticketmaster.com/discovery/v2/events.json?classificationName=#{classificationName}&city=#{city}&apikey=@apiKey")
     events_results_hash = JSON.parse(events_results_string)
     
     if events_results_hash["_embedded"] == nil
@@ -57,7 +57,7 @@ end
 
 def find_events_by_venue(venue)
     prompt = TTY::Prompt.new
-    events_results_string = RestClient.get("https://app.ticketmaster.com/discovery/v2/events.json?apikey=FU4GMZjNo1N2AxOwXrVwwmZDw8MjQD8f&keyword=#{venue}")
+    events_results_string = RestClient.get("https://app.ticketmaster.com/discovery/v2/events.json?apikey=@apiKey&keyword=#{venue}")
     events_results_hash = JSON.parse(events_results_string)
     
     if events_results_hash["_embedded"] == nil
@@ -87,7 +87,7 @@ end
 
 def find_events_by_date(start_date, end_date, city)
     prompt = TTY::Prompt.new
-    events_results_string = RestClient.get("https://app.ticketmaster.com/discovery/v2/events.json?apikey=FU4GMZjNo1N2AxOwXrVwwmZDw8MjQD8f&localStartEndDateTime=#{start_date},#{end_date}&city=#{city}")
+    events_results_string = RestClient.get("https://app.ticketmaster.com/discovery/v2/events.json?apikey=@apiKey&localStartEndDateTime=#{start_date},#{end_date}&city=#{city}")
     events_results_hash = JSON.parse(events_results_string)
     
     if events_results_hash["_embedded"] == nil
