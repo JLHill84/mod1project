@@ -49,8 +49,12 @@ def create_new_user
     puts "What would you like your user name to be?"
     @this_user_name = gets.chomp
     $user  = User.create({ userName: @this_user_name }) 
-  
-    puts "OK, your user name is #{$user.userName}."
+    if $user.id == nil
+        puts $user.errors.full_messages
+        create_new_user
+    else
+        puts "OK, your user name is #{$user.userName}."
+    end
 end
 
 def update_user_name
@@ -116,7 +120,9 @@ def cancel_ticket
     end
         userResponse = prompt.select("Which ticket would you like to cancel?", ticketNames, cycle: true)
         ticket_to_destroy = Ticket.find_by(ticketName: userResponse, userName: @this_user_name)
+        venue_to_destroy = Venue.find_by(ticketName: userResponse, userName: @this_user_name)
         ticket_to_destroy.destroy
+        venue_to_destroy.destroy
         prompt.error("Ticket has been deleted.")
         main_menu
     end
